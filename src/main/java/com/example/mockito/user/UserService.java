@@ -1,9 +1,11 @@
 package com.example.mockito.user;
 
+import com.example.mockito.error.DuplicateException;
+
 import java.util.List;
 
 public interface UserService {
-    UserResponseDto createUser(UserRequestDto userRequestDto);
+    UserResponseDto createUser(UserRequestDto userRequestDto) throws DuplicateException;
 
     List<UserResponseDto> getUsers();
 

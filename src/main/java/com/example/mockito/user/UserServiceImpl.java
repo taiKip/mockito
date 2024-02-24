@@ -1,5 +1,6 @@
 package com.example.mockito.user;
 
+import com.example.mockito.error.DuplicateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,11 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final UserDtoMapper userDtoMapper;
     @Override
-    public UserResponseDto createUser(UserRequestDto userRequestDto) {
+    public UserResponseDto createUser(UserRequestDto userRequestDto) throws DuplicateException {
+       Optional< User> userDb = userRepository.findByEmail(userRequestDto.email());
+       if(userDb.isPresent()){
+           throw new DuplicateException("Email already taken");
+       }
         User newuser = User.builder()
                 .email(userRequestDto.email())
                 .firstName(userRequestDto.firstName())
