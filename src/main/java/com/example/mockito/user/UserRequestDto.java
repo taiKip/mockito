@@ -1,10 +1,9 @@
 package com.example.mockito.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import utils.AppConstants;
 
 public record UserRequestDto(String firstName, String lastName,
                              @NotNull(message = "email is required")
-                             @Email(message = "email is not valid") String email) {
+                            @NotNull @NotEmpty @Pattern(regexp = AppConstants.EMAIL_REGEX) @Email(message = "email is not valid") String email) {
 }

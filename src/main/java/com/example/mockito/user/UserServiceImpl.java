@@ -41,9 +41,13 @@ return  new UserResponseDto(user.getId(),user.getFirstName(),user.getLastName(),
     }
 
     @Override
-    public void deleteUserById(Long id) {
-
+    public String deleteUserById(Long id) throws UserNotFoundException {
+Optional<User> userdb =  userRepository.findById(id);
+if(userdb.isEmpty()){
+    throw new UserNotFoundException();
+}
         userRepository.deleteById(id);
+        return String.format("User with %d id has been deleted",id);
     }
 
     @Override

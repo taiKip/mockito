@@ -22,6 +22,7 @@ return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
 
     @ExceptionHandler(DuplicateException.class)
     public ResponseEntity<ErrorMessage> duplicateException(DuplicateException exception,WebRequest webRequest){
-
+ErrorMessage errorMessage =new ErrorMessage(HttpStatus.CONFLICT,exception.getMessage());
+return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
 }
