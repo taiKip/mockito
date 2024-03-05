@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.regex.Pattern;
+
 public class AppConstants {
-    public static final String EMAIL_REGEX="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$/";
+    public static final String EMAIL_REGEX=
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
 }

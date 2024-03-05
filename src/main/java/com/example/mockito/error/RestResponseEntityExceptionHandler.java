@@ -1,5 +1,6 @@
 package com.example.mockito.error;
 
+import com.example.mockito.post.PostNotFoundException;
 import com.example.mockito.user.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,23 +34,11 @@ return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
 ErrorMessage errorMessage =new ErrorMessage(HttpStatus.CONFLICT,exception.getMessage());
 return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<Set<ErrorMessage>> handleValidationException(MethodArgumentNotValidException exception) {
-//
-//        Set<ErrorMessage> errors = new HashSet<>();
-//        exception.getBindingResult().getFieldErrors().forEach(error -> {
-//            errors.add(new ErrorMessage(HttpStatus.BAD_REQUEST, String.format("%s %s", error.getField(), error.getDefaultMessage())));
-//
-//        });
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-//    }
-//
-//    @Override
-//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-//       Set<ErrorMessage> errorMessages = new HashSet<>();
-//        return;
-//    }
-
+@ExceptionHandler(PostNotFoundException.class)
+public ResponseEntity<ErrorMessage> postNotFoundException(PostNotFoundException exception,WebRequest webRequest){
+        ErrorMessage errorMessage =new ErrorMessage(HttpStatus.NOT_FOUND,exception.getMessage());
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+}
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {

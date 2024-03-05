@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService{
     private final UserDtoMapper userDtoMapper;
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) throws DuplicateException {
-        User userDb = userRepository.findByEmailIgnoreCase(userRequestDto.email());
-       if(userDb.getEmail().equalsIgnoreCase(userRequestDto.email())){
+        Optional<User> userDb = userRepository.findByEmailIgnoreCase(userRequestDto.email());
+       if(userDb.isPresent()&&userDb.get().getEmail().equalsIgnoreCase(userRequestDto.email())){
            throw new DuplicateException("Email already taken");
        }
         User newuser = User.builder()
@@ -37,7 +37,7 @@ return  new UserResponseDto(user.getId(),user.getFirstName(),user.getLastName(),
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmailIgnoreCase(email);
+        return userRepository.findByEmailIgnoreCase(email).get();
     }
 
     @Override
