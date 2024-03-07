@@ -27,7 +27,7 @@ private UserService userService;
                 .email("test@123.com")
                 .build();
         Mockito.when(userRepository.findByEmailIgnoreCase("test@123.com"))
-                .thenReturn(user);
+                .thenReturn(Optional.ofNullable(user));
         Mockito.when(userRepository.findById(2L))
                 .thenReturn(Optional.ofNullable(user));
     }
